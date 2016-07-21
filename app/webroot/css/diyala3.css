@@ -1,0 +1,14 @@
+@charset "utf-8";
+#sponsors{
+background-color:white;
+width: 100%;
+padding-top:30px;
+padding-bottom:30px;
+}
+#sponsors a img{
+margin-left: 20px;
+margin-right: 20px;
+}
+footer#footer{
+background-color:white;
+}

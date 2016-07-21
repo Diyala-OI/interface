@@ -1,0 +1,57 @@
+@charset "utf-8";
+ul#all-sites {
+	list-style: none;
+	background: url(/img/diyala_map.png) no-repeat 0 0;
+	position: relative;
+	width: 900px;
+	height: 461px;	
+	margin: 0;
+	padding: 0;
+}
+
+ul#all-sites li {
+	position: absolute;
+}
+
+ul#all-sites li a{
+	display: block;
+	height: 100%;
+	text-decoration: none;
+}
+
+ul#all-sites li a span {
+display: none;
+}
+
+#all-sites li a {
+font-weight:bold;
+color:black;
+padding-left:15px;
+padding-top:8px;
+width:auto;
+}
+#all-sites li a span {// desc
+
+}
+
+ul#all-sites li a:hover span {
+	display: block;
+	padding: 5px;
+	font-weight:bold;
+	width: 150px;
+	background: #fff;
+	position: relative;
+	top: 40%;
+	left:20%;
+	font: 11px Arial, Helvetica, sans-serif;
+	opacity: .80;
+	filter:alpha(opacity=80);
+	border:2px dashed;
+}
+
+ul#all-sites li a:hover span  {
+	display: block;
+	margin-bottom: 2px;
+	font-size: 12px;
+	text-decoration: none;
+}

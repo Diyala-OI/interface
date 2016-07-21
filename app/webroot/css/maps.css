@@ -1,0 +1,68 @@
+body { -webkit-animation:androidbugfix infinite 1s } /* http://timpietrusky.com/advanced-checkbox-hack */
+@-webkit-keyframes androidbugfix { from {padding:0} to {padding:0} } /* http://timpietrusky.com/advanced-checkbox-hack */
+
+#slider-outer { max-width:40em; margin:auto; position:relative; padding:1.25em } /* change padding to move arrows */
+#slider { display:block; overflow:hidden; border:1px solid #ccc }
+#slider-outer .slide-check { position:absolute; left:-9999px }
+
+#slider .slides { width:500% } /* #### (slides x 100) #### */
+#slider .slides > div { width:20%; /* #### (100 / slides) #### */
+	float:left; overflow:hidden; position:relative; 
+	-webkit-transform:translate3d(0,0,0); /* http://davidwalsh.name/translate3d */
+	-webkit-transition:left .5s ease-in-out; transition:left .5s ease-in-out
+	}
+
+#slider-outer .arrows { font:1em/2em Arial; text-indent:0.1875em; text-align:center; position:absolute; display:none; z-index:9999; 
+	bottom:1px; color:#fff; background:#222; width:2em; border-radius:2em; border:3px solid #fff; cursor:pointer; box-shadow:0 0 0 1px rgb(153,153,153)
+	}
+#slider-outer .arrows:hover { background:#666; color:#222 }
+
+/* #### - define ids of checked buttons/arrows here - #### */
+#btn-goto-first:checked ~ #arrow-1, 
+#btn-1:checked ~ #arrow-2, 
+#btn-2:checked ~ #arrow-3,
+#btn-3:checked ~ #arrow-4, 
+#btn-4:checked ~ #arrow-5, 
+#btn-5:checked ~ #arrow-1 { /* last button always goes to #arrow-1 */
+	right:1px; display:block
+	}
+
+/* #### - define ids of checked buttons/arrows here - reposition/rotate '>' arrows to fake '<' arrows - #### */
+#btn-2:checked ~ #arrow-1, 
+#btn-3:checked ~ #arrow-2,
+#btn-4:checked ~ #arrow-3, 
+#btn-5:checked ~ #arrow-4, 
+#btn-1:checked ~ #arrow-5 { /* #btn-1 always goes to last arrow */
+	left:1px; display:block; 
+	-webkit-transform:rotate(-180deg); -ms-transform:rotate(-180deg); transform:rotate(-180deg);
+	}
+
+/* #### - define ids of checked buttons/arrows here - (100 / slides = % increment) - move slides when checked - #### */
+#slider-outer #btn-1:checked ~ #slider .slides > div, #slider #btn-goto-first:checked ~ #slider .slides > div { left:0% }
+#slider-outer #btn-2:checked ~ #slider .slides > div { left:-20% }
+#slider-outer #btn-3:checked ~ #slider .slides > div { left:-40% }
+#slider-outer #btn-4:checked ~ #slider .slides > div { left:-60% }
+#slider-outer #btn-5:checked ~ #slider .slides > div, #slider #btn-goto-last:checked ~ #slider .slides > div { left:-80% }
+
+/* - #### custom styles for slide content - #### */
+#slider .slides > div > div { font-size:0.875em; padding:1.25em 2em }
+#slider .slides img { float:left; margin-top:0.25em; margin-right:1em }
+#slider .slides .title { display:inline-block; margin-bottom:0.75em }
+#slider .slides .num { float:right; font-size:0.625em; color:#999 }
+#slider .slides .more { text-align:right; font-size:0.875em }
+
+
+@media ( max-width:30em ) { /* #### - make better use of space at 480px (480/16=30 - 16px being default browser font-size) - #### */
+	#slider-outer { font-size:0.9375em; line-height:1.5em; padding:0 0 1.125em 0 }
+	#slider .slides > div > div { padding:1em 0.75em 1.25em }
+	#slider .slides .more { text-align:center }
+}
+ 
+<!--[if lt IE 9]>
+#slider-outer { padding:0 }
+#slider { overflow-x:auto } /* makes the slider content accessible in IE8 */
+#slider .slides > div { margin-left:1px; margin-right:-1px }
+#slider .slides > div > div { border-right:1px solid #ccc }
+#slider-outer, #slider, #slider .slides > div > div { *overflow:hidden } /* hide scrollbars and slide 2 onwards in IE7 */
+#slider .slides .num { *display:none } /* hide numbers in IE7 */
+<![endif]-->
