@@ -54,7 +54,7 @@
 					<!-- Logo
 					============================================= -->
 					<div id="logo">
-						<a href="index.html" class="standard-logo" data-dark-logo="/img/anzu.png"><img src="/img/anzu.png" alt="Diyala Project"></a>
+						<a href="/" class="standard-logo" data-dark-logo="/img/anzu.png"><img src="/img/anzu.png" alt="Diyala Project"></a>
 					</div><!-- #logo end -->
 					<!-- Primary Navigation
 					============================================= -->
@@ -105,3 +105,5 @@
 
 </body>
 </html>
+
+<?php if (Configure::read('debug') == 2) { echo $this->element('sql_dump');} ?>

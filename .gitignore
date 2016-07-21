@@ -21,3 +21,4 @@ build.xml
 robots.txt
 .travis.yml
 .htaccess
+.gitignore
