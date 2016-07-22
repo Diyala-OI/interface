@@ -105,5 +105,3 @@
 
 </body>
 </html>
-
-<?php if (Configure::read('debug') == 2) { echo $this->element('sql_dump');} ?>

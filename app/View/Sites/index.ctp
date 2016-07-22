@@ -1,4 +1,6 @@
 <!-- File: /app/View/Sites/index.ctp -->
+<section id="content">
+  <div class="container-fullwidth clearfix">
 <h1>Diyala Sites</h1>
 <h2>Explore the Diyala Sites Map</h2>
 <p>
@@ -6,8 +8,8 @@ Nunc porttitor urna sed convallis fringilla. Sed urna ligula, porttitor id velit
 </p>
 
 <ul id="all-sites">
-    
-<?php 
+
+<?php
 foreach ($sites as $site){
 	if ($site['SiteCoord']['width']!=0){
  ?>
@@ -21,7 +23,7 @@ foreach ($sites as $site){
 </span>
 </a>
 </li>
-<?php 
+<?php
 	}
 }?>
 
@@ -29,7 +31,7 @@ foreach ($sites as $site){
 <br /><br /><br />
 <h2>Other sites</h2>
 <ul id="other-sites">
-<?php 
+<?php
 foreach ($sites as $site){
 	if ($site['SiteCoord']['width']==0){
  ?>
@@ -37,9 +39,11 @@ foreach ($sites as $site){
 <!--<a title="<?php //echo $site['site_coords']['desc_short']; ?>" href="/#"><?php //echo $site['Site']['site_nm']; ?></a> -->
 <a title="<?php echo $site['SiteCoord']['desc_short']; ?>" href="/sites/view/<?php echo $site['Site']['site_abbrv_cd']; ?>"><?php echo $site['Site']['site_nm']; ?></a>
 
-</li> 
+</li>
 <?php }}?>
 </ul>
 
 <?php
  unset($site); ?>
+ </div>
+ </section>
