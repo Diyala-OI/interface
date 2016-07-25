@@ -1,7 +1,5 @@
 <section id="content">
   <div class="container-fullwidth clearfix">
-
-
 <?php //$this->Html->addCrumb('Site Areas', 'sites/view');?>
 <h1>Areas of <?php echo $site_info['Site']['site_nm']; ?></h1>
 <h2>Interactive map of <?php echo $site_info['Site']['site_nm']; ?> </h2>
@@ -17,7 +15,6 @@ $svgfile = simplexml_load_file('img/maps/'.$site_info['SiteCoord']['map']);
 $attr = $svgfile->attributes();
 $width = preg_replace("/[^0-9,.]/", "", $attr['width']);
 $height = preg_replace("/[^0-9,.]/", "", $attr['height']);
-
 ?>
 
 <svg

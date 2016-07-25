@@ -1,3 +1,5 @@
+<section id="content">
+	<div class="container-fullwidth clearfix">
 <div class="finds view">
 <h2><?php  echo __('Find'); ?></h2>
 	<dl>
@@ -10,7 +12,7 @@
 		<dd>
 			<?php echo h($find['Find']['fdno']); ?>
 			&nbsp;
-		</dd>		
+		</dd>
 	<dt><?php echo __('Season'); ?></dt>
 		<dd>
 			<?php echo h($find['Find']['season']); ?>
@@ -18,3 +20,5 @@
 		</dd>
 		</dl>
 </div>
+</div>
+</section>

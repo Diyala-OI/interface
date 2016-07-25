@@ -37,21 +37,27 @@ $this->set('colors', $colors = array('#d4aa00', '#008080', '#000080', '#ff0000',
 	if (!$id) {
 		throw new NotFoundException(__('Invalid area'));
     }
-	$area = $this->Area->find($type = 'first',  
+	$area = $this->Area->find($type = 'first',
 	array(
     'conditions' => array(' site_subdiv_id' => $id), //array of conditions
     'contain' => array(
-        'Site' => array('SiteCoord', 'fields' => array('SITE_ABBRV_CD','SITE_NM')),
-        'AreaMap',
-        'ArchLevel' => array('Locus', 'LocusCoord'=> array('Locus'), 'ArchLevelMap', 'order' => array ('DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR')))
-    ));
-	
+        				'Site' => array('SiteCoord', 'fields' => array('SITE_ABBRV_CD','SITE_NM')),
+        				'AreaMap',
+								'ArchLevel' => array(
+											'LocusCoord'=> array('Locus'),
+											'ArchLevelMap',
+											'Floor' =>	array(
+															'LocusCoord'=>	array('Locus')))
+															),
+		'order' => array ('DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'))
+    );
+
 	if (!$area) {
 		throw new NotFoundException(__('Invalid area'));
 		}
 	$this->set('area', $area);
 	}
 
-	
-	
+
+
 	}

@@ -1,12 +1,19 @@
 <?php
 App::uses('AppModel', 'Model');
- 
+
 class LocusCoord extends AppModel {
 public $useDbConfig="wiki";
 
 public $belongsTo = array(
 		'ArchLevel' => array(
 			'className' => 'ArchLevel',
+			'foreignKey' => 'level_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+    'Floor' => array(
+			'className' => 'Floor',
 			'foreignKey' => 'level_id',
 			'conditions' => '',
 			'fields' => '',

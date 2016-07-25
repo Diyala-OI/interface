@@ -1,9 +1,9 @@
 <?php
 App::uses('AppModel', 'Model');
 
-class ArchLevel extends AppModel {
+class Floor extends AppModel {
 
-public $useTable = 'arch_levels';
+public $useTable = 'floors';
 public $primaryKey = 'id';
 public $useDbConfig="wiki";
 public $order = array('DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR');
@@ -40,8 +40,8 @@ public $belongsTo = array (
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Area' => array(
-			'className' => 'Area',
+		'ArchLevel' => array(
+			'className' => 'ArchLevel',
 			'foreignKey' => 'SITE_SUBDIV_ID',
 			'dependent' => false,
 			'conditions' => '',
@@ -73,12 +73,7 @@ public $hasMany= array(
 		'LocusCoord' => array(
 			'className' => 'LocusCoord',
 			'foreignKey' => 'level_id'
-    ),
-    'Floor' => array(
-			'className' => 'Floor',
-			'foreignKey' => 'SITE_SUBDIV_ID'
-		  )
-    );
+		  ));
 
 function beforeFind($query)
 {
@@ -93,7 +88,7 @@ function beforeFind($query)
     }
 
     if (!isset($conditions['SITE_SUBDIV_TYPE_CD']) && !isset($conditions[$this->alias . '.SITE_SUBDIV_TYPE_CD'])) {
-        $conditions[$this->alias . '.SITE_SUBDIV_TYPE_CD'] = 'AR';
+  //      $conditions[$this->alias . '.SITE_SUBDIV_TYPE_CD'] = 'AR';
     }
 $query['conditions'] = $conditions;
     return true;

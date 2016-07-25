@@ -12,3 +12,90 @@ margin-right: 20px;
 footer#footer{
 background-color:white;
 }
+path.site_area{
+  fill-opacity:0.3;
+stroke:none;
+
+}
+path.locus_area{
+  fill-opacity:0.3;
+}
+
+path.site_area:hover, path.site_area:focus, path.site_area:active {
+  fill-opacity:0.6;
+  }
+
+
+
+path.locus_area:hover, path.locus_area:focus, path.locus_area:active {
+  fill-opacity:0.7;
+  }
+
+  find images{
+  float:left;
+  width:40%;
+  }
+  .find docs{
+  float:left;
+  width:40%;
+  }
+
+  .find general{
+  float:right;
+  width:60%;
+  }
+
+
+  #tabs{
+  position: relative;
+  min-height:820px;
+  top:20px;
+  }
+
+  #tabs .tab{
+  	margin-top:15px;
+  	float: left;
+  	padding: 20px;
+  	padding-top:10px;
+  	padding-bottom:4px;
+  	background-color:white;
+  	border-radius: 15px 15px 0px 0px;
+  	  -moz-box-shadow: 0 0 5px #ccc;
+  -webkit-box-shadow: 0 0 5px #ccc;
+  box-shadow: 0 0 5px #ccc;
+  }
+  #tabs .tab a
+  {
+  	text-decoration:none;
+  }
+
+  #inner
+  {
+  	position: absolute;
+  	background-color: white;
+  	left:0px;
+  	top: 48px;
+  	-moz-box-shadow: 0 0 3px #ccc;
+  	-webkit-box-shadow: 0 0 3px #ccc;
+  	box-shadow: 0 0 3px #ccc;
+  }
+
+  #tabs .tab:nth-of-type(1) #inner
+  {
+  	z-index: 1;
+  }
+
+  #tab:target a
+  {
+  	font-weight: bold;
+  }
+
+  .tab:target #inner
+  {
+  	z-index: 1;
+  }
+  a .tab_tip{
+  display:block;
+  background-color:grey;
+
+  }

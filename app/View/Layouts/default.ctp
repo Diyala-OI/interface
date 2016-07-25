@@ -75,7 +75,7 @@
 				</div>
 			</div>
 		</header><!-- #header end -->
-		<?php echo $this->fetch('content'); ?>
+					<?php echo $this->fetch('content'); ?>
 
 		<!-- Footer
 		============================================= -->
