@@ -18,17 +18,15 @@ stroke:none;
 
 }
 path.locus_area{
-  fill-opacity:0.3;
+  fill-opacity:0.05;
 }
 
 path.site_area:hover, path.site_area:focus, path.site_area:active {
   fill-opacity:0.6;
   }
 
-
-
 path.locus_area:hover, path.locus_area:focus, path.locus_area:active {
-  fill-opacity:0.7;
+  fill-opacity:0.3;
   }
 
   find images{
@@ -50,12 +48,13 @@ path.locus_area:hover, path.locus_area:focus, path.locus_area:active {
   position: relative;
   min-height:820px;
   top:20px;
+  width: 900px;
   }
 
   #tabs .tab{
-  	margin-top:15px;
+  	margin-top:10px;
   	float: left;
-  	padding: 20px;
+  	padding: 10px;
   	padding-top:10px;
   	padding-bottom:4px;
   	background-color:white;

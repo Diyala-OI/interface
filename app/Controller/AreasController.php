@@ -44,13 +44,21 @@ $this->set('colors', $colors = array('#d4aa00', '#008080', '#000080', '#ff0000',
         				'Site' => array('SiteCoord', 'fields' => array('SITE_ABBRV_CD','SITE_NM')),
         				'AreaMap',
 								'ArchLevel' => array(
-											'LocusCoord'=> array('Locus'),
-											'ArchLevelMap',
-											'Floor' =>	array(
-															'LocusCoord'=>	array('Locus')))
-															),
-		'order' => array ('DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'))
-    );
+													'fields' => array('id','SITE_SUBDIV_NM','SITE_SUBDIV_ID', 'DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'),
+													'order' => array('DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'),
+													'LocusCoord'=> array('Locus' =>array(
+															'fields' => array('id','SITE_SUBDIV_NM','SITE_SUBDIV_ID', 'SQ_H_COORD', 'SQ_V_COORD', 'LOCUS_NBR', 'DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'))),
+														'ArchLevelMap',
+														'Floor' =>	array(
+																'fields' => array('id','SITE_SUBDIV_NM','SITE_SUBDIV_ID', 'DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'),
+																'LocusCoord'=>	array('Locus' => array(
+																'fields' => array('id','SITE_SUBDIV_NM','SITE_SUBDIV_ID', 'SQ_H_COORD', 'SQ_V_COORD', 'LOCUS_NBR', 'DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'))),
+																'ArchLevelMap')
+
+															)
+											)
+								)
+		);
 
 	if (!$area) {
 		throw new NotFoundException(__('Invalid area'));

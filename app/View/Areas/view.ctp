@@ -1,21 +1,18 @@
 <section id="content">
   <div class="container-fullwidth clearfix">
 <section class="areas">
-<pre>
-<?php
-print_r($area);
- ?>
- </pre>
-
 <h1>Area <?php echo $area['Area']['SITE_SUBDIV_NM']; ?> of <?php echo $area['Site']['SITE_NM']; ?></h1>
 <h2>Levels maps of <?php echo $area['Area']['SITE_SUBDIV_NM']; ?></h2>
-<p>Hover on the map to see the loci you can click on to further browse into the data.</p>
+<p>
+Hover on the map to see the loci you can click on to further browse into the data.<br />
+The loci indicated on the map are <em>approximate</em>. </p>
+
 <div id="tabs">
 <?php
 $i=0;
 foreach ($area['ArchLevel'] as $arch_level):
+if (isset($arch_level['ArchLevelMap']['map_file']) || isset($arch_level['Floor'][0]['ArchLevelMap']['map_file'])):
 if (isset($arch_level['ArchLevelMap']['map_file'])):
-// width="680.398px" height="543.99px"
 ?>
 
 
@@ -45,14 +42,56 @@ if (isset($locus['path'])): ?>
      id="locus-<?php echo $locus['Locus']['id']?>" class="locus_area" />
      </a>
 <?php
-endif; endforeach; ?>
-
+endif; // if (isset($locus['path'])):
+endforeach; //  ($arch_level['LocusCoord'] as $locus): ?>
 </svg>
 </div>
 </div>
 <?php
-endif; $i++;
-endforeach;
+endif; $i++; // if (isset($arch_level['ArchLevelMap']['map_file'])):
+
+foreach ($arch_level['Floor'] as $floor):
+if (isset($floor['ArchLevelMap']['map_file'])):
+?>
+  <div class="tab" id="level-<?php echo $floor['id'] ?>">
+    <a href="#level-<?php echo $floor['id'] ?> <?php if ($i==0){echo "no_target_bold";}?>" class="tab_tip"><?php echo $arch_level['SITE_SUBDIV_NM'].' '.$floor['SITE_SUBDIV_NM'] ?></a>
+  <div id="inner">
+
+  <svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="900px" viewBox="0 0 680 543" >
+  <image xlink:href="/img/maps/<?php echo $area['AreaMap']['map_file']?>" width="680px" height="543px" />
+  <image xlink:href="/img/maps/lvls/<?php echo $floor['ArchLevelMap']['map_file']?>" width="680px" height="543px" />
+  <defs>
+    <pattern id="diagonalHatch" patternUnits="userSpaceOnUse" width="4" height="4" patternTransform="rotate(130 0 0)">
+      <path d="M -1,2 l 6,0" stroke="#000" stroke-width="2"/>
+    </pattern>
+  </defs>
+
+  <?php
+  foreach ($floor['LocusCoord'] as $locus):
+  if (isset($locus['path'])): ?>
+  <a xlink:href="/loci/view/<?php echo $locus['Locus']['id']?>" xlink:title="<?php echo $locus['Locus']['SQ_H_COORD'].$locus['Locus']['SQ_V_COORD'].':'.$locus['Locus']['LOCUS_NBR'];?> <?php echo $locus['desc_short'] ?>">
+    <path
+       style="fill:url(#diagonalHatch)"
+       d="<?php echo $locus['path']?>"
+       id="locus-<?php echo $locus['Locus']['id']?>" class="locus_area" />
+       </a>
+  <?php
+endif;//(isset($locus['path'])):
+endforeach;//($floor['LocusCoord'] as $locus): ?>
+  </svg>
+  </div>
+  </div>
+  <?php
+
+endif;//(isset($arch_level['Floor']['ArchLevelMap']['map_file'])):
+endforeach;//($arch_level['Floor'] as $floor):
+
+endif;
+endforeach; //($area['ArchLevel'] as $arch_level):
+
 ?>
 </div>
 </section>
