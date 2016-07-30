@@ -28,20 +28,20 @@ public $useDbConfig="wiki";
  'joinTable' => 'finds_loci',
  'foreignKey' => 'locus_id',
  'associationForeignKey' => 'find_id'),
- 
+
 'LocusCard' => array(
  'className' => 'LocusCard',
  'foreignKey' => 'OBJ_ID',
  'joinTable' => 'ref_item_assoc',
  'associationForeignKey' => 'REF_ITEM_ID'),
-     
+
  'DigitalImg' => array(
  'className' => 'DigitalImg',
  'foreignKey' => 'OBJ_ID',
  'joinTable' => 'ref_item_assoc',
  'associationForeignKey' => 'REF_ITEM_ID'),
    );
-    
+
 public $hasMany = array(
 		'LocusCoord' => array(
 			'className' => 'LocusCoord',
@@ -70,4 +70,3 @@ public $hasMany = array(
 );
 
 }
-

@@ -1,3 +1,5 @@
+<section id="content">
+  <div class="container-fullwidth clearfix">
 <div class="locus">
 <h1>Locus <?php echo $locus['Locus']['locus_nm'];?></h1>
 <h2><a href="/areas/view/<?php echo $locus['ArchLevel']['0']['Area']['SITE_SUBDIV_ID']?>" ><?php echo $locus['ArchLevel']['0']['Area']['SITE_SUBDIV_NM']?></a>
@@ -19,7 +21,7 @@ endif;
 ?>
 </div>
 <?php // needs a loop through levels ?>
-Info about this locus : what levels, period, etc. 
+Info about this locus : what levels, period, etc.
 Click on find number below to see details.
 <div id="associated_finds">
 <table style="background-color:white">
@@ -35,9 +37,10 @@ Click on find number below to see details.
 <?php
   $i = 0;
   foreach ($locus['Find'] as $find):
+    print_r($find);
  	$class = null;
 	if ($i++ % 2 == 0) {$class = ' class="altrow"'; }
-	
+
 	$z=0;
 foreach ($find['Material'] as $material){
 	if ($material['LVL_NBR']==1){
@@ -55,14 +58,14 @@ foreach ($find['Material'] as $material){
 }
 
 $material = $new_material;
-	
-	
-	
+
+
+
 	?>
 <tr<?php echo $class;?>>
 <td>
 
-<?php 
+<?php
 $j=0;
 
 foreach ($find['DigitalImg'] as $image):
@@ -99,7 +102,7 @@ echo $material[0]['material2'][$key];
 elseif ((!empty($material[0]['material1'])) && (!in_array($material[0]['material1'][$key],$bad))){
 	echo $material[0]['material1'][$key];
 }
-echo '  '; 
+echo '  ';
 
 unset($key, $bad);
 if ($find['VMFind']['DESCRN_1']!=null){
@@ -117,13 +120,13 @@ echo $find['VMFind']['DESCR1'];
 foreach ($material as $mat):
 ?>
 <li>
-<?php 
+<?php
 if (!empty($mat['material1'])):
    echo $this->Html->link(
    $mat['material1']['MATERIAL_DESCR'],
    array('controller' => 'materials', 'action' => 'view', $mat['material1']['MATERIAL_ID']));
 endif;
-    
+
 if (!empty($mat['material2'])):
   echo " > ";
   echo $this->Html->link(
@@ -139,10 +142,10 @@ if (!empty($mat['material3'])):
 endif;
 ?>
 <li>
-<?php 
+<?php
 endforeach;?>
 </ul></td>
-<td><?php echo $find['MUSEUM_REGISTRY_NBR'] ?></td> 
+<td><?php echo $find['MUSEUM_REGISTRY_NBR'] ?></td>
 <td><a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=DIYALAAPPL:41:::NO:41:P41_FIND_ID:<?php echo$find['FIND_ID'];?>" target="apex"><img src="/img/hat.png"></a>
  <?php
 if ($find['MUSEUM_NM']=='OI' && !empty($find['Idb']['idb_id'])): ?>
@@ -153,3 +156,5 @@ if ($find['MUSEUM_NM']=='OI' && !empty($find['Idb']['idb_id'])): ?>
 <?php endforeach; ?>
 </table>
 </div>
+</div>
+</section>
