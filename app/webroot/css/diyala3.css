@@ -98,3 +98,22 @@ path.locus_area:hover, path.locus_area:focus, path.locus_area:active {
   background-color:grey;
 
   }
+
+  #images.find-section{
+  float:right;
+  border:4px #f90 dashed;
+  float:left;
+  margin: 20px;
+  padding: 20px;
+  padding-top: -50px;
+  }
+
+
+  .find-section{
+  border-top:4px #e6e6e6 dashed;
+  float:left;
+  margin: 20px;
+  min-width: 300px;
+  padding: 20px;
+  padding-top: -50px;
+  }

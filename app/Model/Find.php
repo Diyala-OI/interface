@@ -27,8 +27,8 @@ public $hasAndBelongsToMany = array(
  'joinTable' => 'material_find',
  'foreignKey' => 'FIND_ID',
  'associationForeignKey' => 'MATERIAL_ID',
- 
-  ),
+
+  )
  /* 'Locus' => array(
  'className' => 'Locus',
  'joinTable' => 'diyala_wiki.finds_loci',
@@ -48,7 +48,7 @@ public $hasMany= array(
  'Description' => array(
  'className' => 'Description',
  'foreignKey' => 'find_id'
-) 
+)
 )
 ;*/
 public $hasOne= array(
@@ -75,7 +75,19 @@ public $hasMany = array(
 			'offset' => '',
 			'exclusive' => '',
 			'finderQuery' => '',
-			'counterQuery' => '')
+			'counterQuery' => ''),
+  'FindRegistryInfo' => array(
+          'className' => 'FindRegistryInfo',
+          'foreignKey' => 'FIND_ID',
+          'dependent' => false,
+          'conditions' => '',
+          'fields' => '',
+          'order' => '',
+          'limit' => '',
+          'offset' => '',
+          'exclusive' => '',
+          'finderQuery' => '',
+          'counterQuery' => '')
 );
 
 }

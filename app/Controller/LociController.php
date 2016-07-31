@@ -17,7 +17,7 @@ if (!$id) {
   'conditions' => array('id' => $id),
   'order' => array('DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'),
   'contain' => array(
-            	'Find' => array ('Citation', 'DigitalImg', 'Material' ),
+            	'Find' => array ('Citation', 'DigitalImg', 'Material', 'VMFind' ),
             	'LocusCard'=> array('DigitalImg'),
         	     'ArchLevel' => array(
                     'fields' => array('id','SITE_SUBDIV_NM','SITE_SUBDIV_ID', 'DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'),

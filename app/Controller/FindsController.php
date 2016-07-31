@@ -1,11 +1,29 @@
 <?php
 class FindsController extends AppController {
 public $helpers = array('Html');
-public $actsAs = array ('containable'/*'Searchable'*/); 
+public $actsAs = array ('containable'/*'Searchable'*/);
 public $components = array('RequestHandler'/*, 'Search'*/, 'Filter.Filter');
 
 public function index() {
-$this->set('finds', $this->Find->find('all', array('limit' => 50, 'fields' => array('FIND_ID', 'FDNO', 'SEASON'))));
+$this->set('finds', $this->Find->find('all', array('limit' => 50,
+'fields' => array('FIND_ID', 'FDNO', 'SEASON'),
+'contain' => array('Citation', 'DigitalImg', 'Material','ProvInfo', 'VMFind', 'FindRegistryInfo')
+)));
+
+$this->loadModel('DirectoryInfo');
+$dirs = $this->DirectoryInfo->find('all');
+//$this->set('dirs', $dirs);
+foreach ($dirs as $dir):
+$arranged_dirs[$dir['DirectoryInfo']['DIRECTORY_NAME']] = $dir['DirectoryInfo']['DIRECTORY_PATH'];
+endforeach;
+$this->set('dirs', $arranged_dirs);
+$this->loadModel('Idb');
+$idbs = $this->Idb->find('all');
+/*print_r($idbs);
+foreach ($idbs as $idb):
+$arranged_idbs[$idb['MUSEUM_REGISTRY_NBR']] = $idb['idb_id'];
+endforeach; */
+$this->set('idbs', $idbs);
 }
 
 
@@ -16,11 +34,8 @@ if(!$find_id){
 $find= $this->Find->find('first', array(
  'recursive' => 2,
  'conditions' => array('Find.FIND_ID' => $find_id),
- /*'contain' => 'Material',
-	      'RefItem',
-	      'ProvInfo',
-	      'VMFind',
-*/	));
+  'contain' => array ('Citation', 'DigitalImg', 'Material','ProvInfo', 'VMFind', 'FindRegistryInfo')
+	));
 $this->set('find', $find);
 
 
@@ -37,6 +52,7 @@ $this->set('dirs', $arranged_dirs);
 
 
 $i=0;
+print_r($find);
 foreach ($find['Material'] as $material){
 	if ($material['LVL_NBR']==1){
 	$new_material[$i]['material1']=$material;
@@ -91,7 +107,7 @@ $this->set('subdiv', $new_subdiv);
 [img_mime_cd] //=> image/jpeg
 [img_title] //=> Object Image
 [img_directory_obj] //=> DIYALA_AGRAB01
-[digital_img_set_id] //=> 
+[digital_img_set_id] //=>
 [img_file_nm] //=> ag0133_02.jpg
 
 
@@ -109,7 +125,7 @@ $find = $this->Find->find('first', array(
 			'DigitalImage' => array(
                 'conditions' => array('RefItem.ref_type_cd LIKE' => '%DG%')
             ),
-		), 
+		),
 	),
 	'ProvInfo'
  )
@@ -148,10 +164,10 @@ foreach ($find[RefItem] as $key=>$value){
 if ($find['RefItem'][$key]['ref_type_cd']=='DG')
 {
 $img['img_title']=$find['RefItem']['DigitalImg']['img_title'];
-$img['bfile_locn']=$find['RefItem']['DigitalImg']['ibfile_locn']; 
-$img['img_file_nm']=$find['RefItem']['DigitalImg']['img_file_nm']; 
-$img['img_directory_obj']=$find['RefItem']['DigitalImg']['img_directory_obj']; 
-$img['img_locn']=$find['RefItem']['DigitalImg']['img_locn']; 
+$img['bfile_locn']=$find['RefItem']['DigitalImg']['ibfile_locn'];
+$img['img_file_nm']=$find['RefItem']['DigitalImg']['img_file_nm'];
+$img['img_directory_obj']=$find['RefItem']['DigitalImg']['img_directory_obj'];
+$img['img_locn']=$find['RefItem']['DigitalImg']['img_locn'];
 $objImgs = $objImg, $img;
 }}
 	$this->set('objImgs', $objImgs);

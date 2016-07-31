@@ -1,4 +1,4 @@
-<!-- cvbxcxcvbccxd448 930 805v<!DOCTYPE html> -->
+<!DOCTYPE html>
 <html>
 <head>
 <?php echo $this->Html->charset(); ?>

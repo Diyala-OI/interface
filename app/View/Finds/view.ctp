@@ -1,3 +1,5 @@
+<section id="content">
+<div class="container-fullwidth clearfix">
 <div id="find">
 <h1><?php echo $find['Find']['FDNO'].': '.$find['Find']['COLOR'].' ';
 
@@ -17,7 +19,7 @@ echo $material[0]['material2'][$key];
 elseif ((!empty($material[0]['material1'])) && (!in_array($material[0]['material1'][$key],$bad))){
 	echo $material[0]['material1'][$key];
 }
-echo '  '; 
+echo '  ';
 
 unset($key, $bad);
 if ($find['VMFind']['DESCRN_1']!=null){
@@ -28,9 +30,8 @@ echo $find['VMFind']['DESCR1'];
 }
 ?>
 </h1>
-<h2>Object page</h2>
 <?php if(!empty($find['DigitalImg'])) : ?>
-<div id="images" class="find-section">
+<div id="images">
 <ul id="css3-slider">
 <?php
 foreach ($find['DigitalImg'] as $k => $image):
@@ -41,7 +42,7 @@ $kk=$k+1;
 <li>
 <input type="radio" id="s<?php echo $k;?>" name="num" <?php if ($k==0){echo 'checked="true"';} ?> />
 <label for="s<?php echo $k;?>"><?php echo $kk;?></label>
-<img src="http://diyala.uchicago.edu<?php echo$dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" />
+<img src="<?php echo IMG_PATH.$dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" />
 </li>
 <?php
 endif;
@@ -71,7 +72,7 @@ Dig season: <?php echo $find['Find']['SEASON']; ?></br>
 
 
 <?php if (!empty($subdiv['site'])):?>
-Site : 
+Site :
 <?php echo $this->Html->link(
    $subdiv['site']['SITE_SUBDIV_NM'],
     array('controller' => 'sites', 'action' => 'view', $subdiv['site']['SITE_ABBRV_CD']));
@@ -80,7 +81,7 @@ Site :
 <?php endif;?>
 
 <?php if (!empty($subdiv['area'])):?>
-Area : 
+Area :
 <?php echo $this->Html->link(
    $subdiv['area']['sITE_SUBDIV_NM'],
     array('controller' => 'areas', 'action' => 'view', $subdiv['area']['SITE_SUBDIV_ID']));
@@ -89,13 +90,13 @@ Area :
 <?php endif;?>
 
 <?php if (!empty($subdiv['ArchLevel'])):?>
-Level : 
+Level :
 <?php echo $subdiv['ArchLevel']['site_subdiv_nm'] ?>
 <br />
 <?php endif;?>
 
 <?php if (!empty($subdiv['locus'])):?>
-Area : 
+Area :
 <?php echo $this->Html->link(
    $subdiv['locus']['SITE_SUBDIV_NM'],
     array('controller' => 'locus', 'action' => 'view', $subdiv['locus']['SITE_SUBDIV_ID']));
@@ -114,12 +115,19 @@ sets info : thumbnails of other object<br />s in that set with title and find nu
 
 <div id="analysis" class="find-section">
 <h3>Storage, Description and Analysis</h3>
-Museum number : <?php echo$find['Find']['MUSEUM_REGISTRY_NBR'];?> <br />
+Museum number(s) :
+<?php
+foreach ($find['FindRegistryInfo'] as $reg):
+echo $reg['MUSEUM_NM'] .' '. $reg['MUS_REGISTRY_NBR']. '<br />';
+endforeach;
+?>
+
+<br />
 Dating: <br />
 Description: <br />
 Tags:  <br />
 Keywords: <br />
-Materials: 
+Materials:
 <ul>
 
 <?php foreach ($find['Material'] as $mat):?>
@@ -132,7 +140,7 @@ Materials:
 <?php endif;?>
 
 <?php if (!empty($mat['material2'])):?>
-> 
+>
 <?php echo $this->Html->link(
    $mat['material2']['MATERIAL_DESCR'],
     array('controller' => 'materials', 'action' => 'view', $mat['material2']['MATERIAL_ID']));
@@ -152,7 +160,7 @@ Materials:
 Color: <?php echo $find['Find']['COLOR'].' '; ?> </br>
 <?php endif; ?>
 Dimensions: <?php echo $find['VMFind']['FIND_DIMEN']; ?><br />
-<?php 
+<?php
 // Displays only if there is more than one item w/ this find number
 if ($find['Find']['QUANTITY']>1)
 {
@@ -169,10 +177,12 @@ field diaries
 if seal or tablet : link to seal designs and inscription entries
 </div>
 <div id="loc" class="find-section">
-<h3>Localisation</h3>
+<h3>Provenience</h3>
 elevation<br />
 Locus X
 Area X
+Site
+<a href="/sites">Diyala Region</a>, Mesopotamia
 <br />
 </div>
 
@@ -187,10 +197,20 @@ etc..
 
 <div class="find-section">
 <h3>Outside links</h3>
-<a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=DIYALAAPPL:41:::NO:41:P41_FIND_ID:<?php echo$find['Find']['FIND_ID'];?>" target="apex">Scholar interface (<?php echo $find['Find']['FDNO']?>)</a><br />
-<?php if ($find['MUSEUM_NM']=='OI') :?>
-<a href=http://oi-idb.uchicago.edu/#D/MC/<?php echo$find['Idb']['idb_id'];?>" target="idb">Oriental Institute IDB (eMU id #<?php echo$find['Idb']['idb_id'];?> )</a>
-<?php endif;?>
+<a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=105:41:::NO:41:P41_FIND_ID:<?php echo$find['Find']['FIND_ID'];?>" target="apex">Scholar interface (<?php echo $find['Find']['FDNO']?>)</a><br />
+
+<?php
+print_r($idbs);
+foreach ($find['FindRegistryInfo'] as $reg):
+    if ($reg['MUSEUM_NM']=='OI'):
+        echo $reg['MUSEUM_NM'] .' '. $reg['MUS_REGISTRY_NBR'];?>
+        <a href=http://oi-idb.uchicago.edu/#D/MC/<?php echo $idbs[$reg['MUSEUM_NM'].' '.$reg['MUS_REGISTRY_NBR']];?>" target="idb">Oriental Institute IDB (eMU id # <?php echo $idbs[$reg['MUSEUM_NM'].' '.$reg['MUS_REGISTRY_NBR']];?> )</a><br />
+        <?php
+
+    endif;
+endforeach;
+?>
+
 <br />
 </div>
 
@@ -200,3 +220,6 @@ etc..
 
 
 </div>
+
+</div>
+</section>
