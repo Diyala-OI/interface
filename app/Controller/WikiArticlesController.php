@@ -2,7 +2,7 @@
 class WikiArticlesController extends AppController {
 public $name = 'WikiArticles';
 public $useDbConfig="wiki";
-public $components = array('RequestHandler', 'Search.Prg'); 
+public $components = array('RequestHandler', 'Search.Prg');
 var $helpers = array('Html', 'Form', 'Js');
 
 public function index() {
@@ -20,9 +20,9 @@ public function admin_sort() {
 
 public function admin_getnodes() {
 	$this->layout = 'ajax';
-	
+
 	   $parent = isset($this->request->data['node']) ? intval($this->request->data['node']) : 0;
-		 
+
 		   if ($parent) {
             $nodes = $this->WikiArticles->children($parent, true);
         } else {
@@ -92,10 +92,11 @@ public function admin_getnodes() {
 		public function view($url) {
     $wikiArticle = $this->WikiArticle->find('first', array('recursive' => 2, 'conditions' => array('WikiArticle.url' => $url)));
 $this->set(compact('wikiArticle'));
+	$this->set('title', $wikiArticle['WikiArticle']['title']);
 		}
-	
 
-	
+
+
 	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->WikiArticle->create();
@@ -117,7 +118,7 @@ $this->set(compact('wikiArticle'));
 		if (!$this->WikiArticle->exists($id)) {
 			throw new NotFoundException(__('Invalid wiki article'));
 		}
-		
+
 		if ($this->request->is('post') || $this->request->is('put')) {
 		if ($this->WikiArticle->save($this->request->data)) {
 				$this->Session->setFlash(__('The wiki article has been saved'));
@@ -148,16 +149,16 @@ public function admin_delete($id = null) {
 		$this->Session->setFlash(__('Wiki article was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
-	
-	
-	
+
+
+
  public function find() {
         $this->Prg->commonProcess();
         $this->Paginator->settings['conditions'] = $this->Article->parseCriteria($this->Prg->parsedParams());
         $this->set('articles', $this->Paginator->paginate());
     }
-		
-		
+
+
 public function isAuthorized($user) {
     if ($this->action === 'view') {
         return true;
@@ -184,7 +185,7 @@ $this->redirect(array('action' => 'index'));
 }
     public function get_menu_categories(){
         $this->autoRender  = false;
-        
+
         $alias = $this->categoryAlias;
         $categories = Cache::read('get_menu_categories_'.$alias);
         if(empty($categories)){

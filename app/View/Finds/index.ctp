@@ -1,4 +1,5 @@
-<!-- File: /app/View/Finds/index.ctp -->
+<section id="content">
+<div class="container-fullwidth clearfix">
 <h1>Finds</h1>
 <table style="background-color:white">
 <caption>Finds</caption>
@@ -47,7 +48,7 @@ foreach ($find['DigitalImg'] as $image):
 if ($image['SCREEN_IMG_IND']=='Y'):
 $j++;
 ?>
-<img src="http://diyala.uchicago.edu<?php echo $dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" style="max-width:100px" />
+<img src="<?php echo IMG_PATH. $dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" style="max-width:100px" />
 <?php
 endif;
 if ($j==1) {break;}
@@ -130,3 +131,5 @@ if ($find['MUSEUM_NM']=='OI' && !empty($find['Idb']['idb_id'])): ?>
 </table>
     <?php unset($find); ?>
 </table>
+</div>
+</section>

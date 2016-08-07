@@ -4,8 +4,10 @@ class MaterialsController extends AppController {
 	var $name = 'Materials';
 
 	function index() {
+		$this->Material->find('all', array('recursive' => 1));
 		$this->set('materials', $this->paginate());
-	}
+		$this->set('title', 'Materials repertoire');
+		}
 
 	function view($id = null) {
 		if (!$id) {
@@ -16,19 +18,20 @@ class MaterialsController extends AppController {
       'recursive' => 2,
       'conditions' => array('MATERIAL_ID' => $id),
       'contain' => array(
-		    'Find' => array ('Citation', 'DigitalImg', 'Material' )
+		    'Find' => array ('DigitalImg', 'Idb','FindRegistryInfo', 'MaterialFind'=> array('Material'))
 		      )));
 
-$this->loadModel('DirectoryInfo');
-$dirs = $this->DirectoryInfo->find('all');
-//$this->set('dirs', $dirs);
-foreach ($dirs as $dir):
-$arranged_dirs[$dir['DirectoryInfo']['DIRECTORY_NAME']] = $dir['DirectoryInfo']['DIRECTORY_PATH'];
-endforeach;
-$this->set('dirs', $arranged_dirs);
+					$this->loadModel('DirectoryInfo');
+					$dirs = $this->DirectoryInfo->find('all');
+					//$this->set('dirs', $dirs);
+					foreach ($dirs as $dir):
+					$arranged_dirs[$dir['DirectoryInfo']['DIRECTORY_NAME']] = $dir['DirectoryInfo']['DIRECTORY_PATH'];
+					endforeach;
+					$this->set('dirs', $arranged_dirs);
 
 
 $this->set('material', $material);
+$this->set('title', 'Material: '.$material['Material']['MATERIAL_DESCR']);
 	}
 /*
 	function add() {

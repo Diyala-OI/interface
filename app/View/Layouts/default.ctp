@@ -2,14 +2,14 @@
 <html dir="ltr" lang="en-US">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 	<?php
 	echo $this->Html->meta('icon');
 	echo $this->Html->css(array('bootstrap','style','dark', 'menu', 'font-icons', 'animate','all-sites', 'magnific-popup','responsive','diyala3','maps', 'slider'));
 	echo $this->fetch('meta');
-	//echo $this->fetch('script');
-	//echo $this->Html->script('ckeditor/ckeditor');
+	echo $this->fetch('script');
+	echo $this->Html->script('ckeditor/ckeditor');
  	?>
-	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!--[if lt IE 9]>
 		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -24,7 +24,7 @@
 		ga('send', 'pageview');
 	</script>
 	</head>
-<body class="stretched no-transition">
+<body class="stretched <?php //no-transition?>">
 	<div id="wrapper" class="clearfix">
 		<?php if( $this->Session->read('Auth.User.role') == ('admin'||'author') ): ?>
 		<div id="top-bar">
@@ -67,7 +67,7 @@
 						============================================= -->
 						<div id="top-search">
 							<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-							<form action="search.html" method="get">
+							<form action="#" method="get">
 								<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
 							</form>
 						</div><!-- #top-search end -->
@@ -75,8 +75,24 @@
 				</div>
 			</div>
 		</header><!-- #header end -->
-					<?php echo $this->fetch('content'); ?>
+		<!-- Page Title
+		============================================= -->
+		<section id="page-title">
 
+			<div class="container clearfix">
+				<h1><?php echo $title; ?></h1>
+		<!--		<ol class="breadcrumb">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Pages</a></li>
+					<li class="active">Full Width Layout</li>
+				</ol> -->
+			</div>
+
+		</section><!-- #page-title end -->
+
+		<section id="content">
+					<?php echo $this->fetch('content'); ?>
+	</section><!-- #content end -->
 		<!-- Footer
 		============================================= -->
 		<footer id="footer">
@@ -84,24 +100,15 @@
 			<div class="container-fullwidth">
 				<?php echo $this->element('copyright');
 				?>
-
-</div>
+				</div>
 		</footer><!-- #footer end -->
-
 	</div><!-- #wrapper end -->
 
-	<!-- Go To Top
-	============================================= -->
 	<div id="gotoTop" class="icon-angle-up"></div>
 
-	<!-- External JavaScripts
-	============================================= -->
-		<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/plugins.js"></script>
-
-	<!-- Footer Scripts
-	============================================= -->
-	<script type="text/javascript" src="js/functions.js"></script>
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/plugins.js"></script>
+	<script type="text/javascript" src="/js/functions.js"></script>
 
 </body>
 </html>

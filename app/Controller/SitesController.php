@@ -5,6 +5,7 @@ public $uses = array('Area','Site', 'AreaCoord');
 
 public function index() {
 $this->set('sites', $this->Site->find('all', array('fields' => array('site_abbrv_cd', 'site_nm'))));
+$this->set('title', 'Diyala Sites');
 }
 
 public function view($site_id=null) { // view areas of one site
@@ -21,6 +22,6 @@ array(
 'conditions' => array('site_subdiv_type_cd' => 'AR','Area.site_abbrv_cd' => $site_id),// get only area types of subdiv
 'order' => array('display_seq1_nbr ASC', 'display_seq2_nbr ASC', 'display_seq1_nbr ASC'), //string or array defining order
 )));
-
+$this->set('title','Areas of '. $site_info['Site']['site_nm']); 
 }
 }

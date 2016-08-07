@@ -99,17 +99,7 @@ path.locus_area:hover, path.locus_area:focus, path.locus_area:active {
 
   }
 
-  #images.find-section{
-  float:right;
-  border:4px #f90 dashed;
-  float:left;
-  margin: 20px;
-  padding: 20px;
-  padding-top: -50px;
-  }
-
-
-  .find-section{
+.find-section{
   border-top:4px #e6e6e6 dashed;
   float:left;
   margin: 20px;
@@ -117,3 +107,99 @@ path.locus_area:hover, path.locus_area:focus, path.locus_area:active {
   padding: 20px;
   padding-top: -50px;
   }
+
+  #page-title h1 {
+  text-transform: none;
+  }
+
+.content-wrap {
+  padding:30px 0;
+}
+
+#associated_finds table caption{
+  background-color:#1ABC9C;
+  font-weight: 800;
+  color:black;
+  text-align:center;
+  width:100%;
+  padding: 4px;
+}
+
+#page-title {
+  background-color:#F5F5F5;
+  border-bottom: 1px solid #1ABC9C;
+}
+
+h2 {
+font-size:1.5em;
+
+}
+
+.slider{
+	width: 640px; /*Same as width of the large image*/
+	position: relative;
+	/*Instead of height we will use padding*/
+	padding-top: 320px; /*That helps bring the labels down*/
+  padding-bottom: 100px;
+
+}
+
+
+/*Last thing remaining is to add transitions*/
+.slider>img{
+	position: absolute;
+	left: 0; top: 0;
+	transition: all 0.5s;
+}
+
+.slider input[name='slide_switch'] {
+	display: none;
+}
+
+.slider label {
+	/*Lets add some spacing for the thumbnails*/
+	margin-right:18px;
+  margin-top:18px;
+	border: 1px solid #999;
+	float: left;
+	cursor: pointer;
+	transition: all 0.5s;
+
+	/*Default style = low opacity*/
+	opacity: 0.6;
+}
+
+.slider label img{
+	display: block;
+}
+
+/*Time to add the click effects*/
+.slider input[name='slide_switch']:checked+label {
+	border-color: #666;
+	opacity: 1;
+}
+/*Clicking any thumbnail now should change its opacity(style)*/
+/*Time to work on the main images*/
+.slider input[name='slide_switch'] ~ img {
+	opacity: 0;
+	transform: scale(1.1);
+}
+/*That hides all main images at a 110% size
+On click the images will be displayed at normal size to complete the effect
+*/
+.slider input[name='slide_switch']:checked+label+img {
+	opacity: 1;
+	transform: scale(1);
+}
+.slider img{
+max-height:320px;
+max-width:640px;
+box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.75);
+border: 1px solid #999;
+
+}
+.slider label img{
+max-width: 100px;
+max-height:100px;
+
+}

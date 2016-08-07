@@ -1,18 +1,24 @@
-<div>
+<div class="content-wrap">
+<div class="container clearfix">
+<div class="col_full">
+<pre>
 <?php //print_r($material) ?>
-<h2>Material: <?php echo $material['Material']['MATERIAL_DESCR']; ?></h2>
-<?php if($material['Material']['LVL_NBR']!=1):?>
-Parent(s) : 
-
+</pre>
+<?php
+///// IF HAS PARENT
+if($material['Material']['LVL_NBR']!=1):?>
+Parent(s) :
 <br />
 <?php endif;?>
-<?php if (!empty($material['Material']['MATERIAL_CMTS'])):?>
+<?php
+///// IF COMMENTS
+if (!empty($material['Material']['MATERIAL_CMTS'])):?>
 Comments : <?php echo $material['Material']['MATERIAL_CMTS']?><br />
-<?php endif;?>
+<?php endif;
+?>
 </div>
-<br /><br />
-<div id="associated_finds">
-<table style="background-color:white">
+
+<table>
 <caption>Associated finds</caption>
 <tr>
 <th>Image<?php //echo $this->Paginator->sort('no_perso');?></th>
@@ -27,9 +33,9 @@ Comments : <?php echo $material['Material']['MATERIAL_CMTS']?><br />
   foreach ($material['Find'] as $find):
  	$class = null;
 	if ($i++ % 2 == 0) {$class = ' class="altrow"'; }
-/*	
+/*
 	$z=0;
-foreach ($find['Material'] as $material){
+foreach ($find['FindMaterial']['Material'] as $material){
 	if ($material['LVL_NBR']==1){
 	$new_material[$z]['material1']=$material;
 	$z++;
@@ -45,20 +51,19 @@ foreach ($find['Material'] as $material){
 }
 
 $material = $new_material;
-	
-	*/
-	
+
+*/
+
 	?>
 <tr<?php echo $class;?>>
 <td>
-<?php 
+<?php
 $j=0;
-
 foreach ($find['DigitalImg'] as $image):
 if ($image['SCREEN_IMG_IND']=='Y'):
 $j++;
 ?>
-<img src="http://diyala.uchicago.edu<?php echo $dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" style="max-width:100px" />
+<img src="<?php echo IMG_PATH.$dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>"  width='100' />
 <?php
 endif;
 if ($j==1) {break;}
@@ -86,7 +91,7 @@ echo $material[0]['material2'][$key];
 elseif ((!empty($material[0]['material1'])) && (!in_array($material[0]['material1'][$key],$bad))){
 	echo $material[0]['material1'][$key];
 }
-echo '  '; 
+echo '  ';
 
 unset($key, $bad);
 if ($find['VMFind']['DESCRN_1']!=null){
@@ -104,13 +109,13 @@ echo $find['VMFind']['DESCR1'];
 foreach ($material as $mat):
 ?>
 <li>
-<?php 
+<?php
 if (!empty($mat['material1'])):
    echo $this->Html->link(
    $mat['material1']['MATERIAL_DESCR'],
    array('controller' => 'materials', 'action' => 'view', $mat['material1']['MATERIAL_ID']));
 endif;
-    
+
 if (!empty($mat['material2'])):
   echo " > ";
   echo $this->Html->link(
@@ -125,18 +130,27 @@ if (!empty($mat['material3'])):
   array('controller' => 'materials', 'action' => 'view', $mat['material3']['MATERIAL_ID']));
 endif;
 ?>
-<li>
-<?php 
+</li>
+<?php
 endforeach;?>
 </ul></td>
-<td><?php echo $find['MUSEUM_REGISTRY_NBR'] ?></td> 
-<td><a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=DIYALAAPPL:41:::NO:41:P41_FIND_ID:<?php echo$find['FIND_ID'];?>" target="apex"><img src="/img/hat.png"></a>
+<td><?php
+foreach ($find['FindRegistryInfo'] as $registry):
+echo $registry['MUSEUM_NM'].' '.$registry['MUS_REGISTRY_NBR'];
+endforeach;
+
+?></td>
+<td><a href="
+http://diyalaproject.uchicago.edu/pls/apex/f?p=105:41:::NO:41:P41_FIND_ID:<?php echo$find['FIND_ID'];?>" target="apex"><img src="/img/hat.png"></a>
  <?php
-if ($find['MUSEUM_NM']=='OI' && !empty($find['Idb']['idb_id'])): ?>
-<a href="http://oi-idb.uchicago.edu/#D/MC/<?php echo $find['Idb']['idb_id'];?>" target="idb">OI iDB</a></td>
-<?php endif;?>
+
+ foreach ($find['FindRegistryInfo'] as $registry):
+if ($registry['MUSEUM_NM']=='OI' && !empty($find['Idb']['idb_id'])): ?>
+<a href="http://oi-idb.uchicago.edu/#D/MC/<?php echo $find['Idb']['idb_id'];?>" target="idb">iDB (<?php echo $registry['MUSEUM_NM'].' '.$registry['MUS_REGISTRY_NBR']?>)</a>
+<?php endif;  endforeach;?>
 </td>
 </tr>
 <?php endforeach; ?>
 </table>
+</div>
 </div>

@@ -19,24 +19,26 @@ endforeach;
 $this->set('dirs', $arranged_dirs);
 $this->loadModel('Idb');
 $idbs = $this->Idb->find('all');
-/*print_r($idbs);
-foreach ($idbs as $idb):
-$arranged_idbs[$idb['MUSEUM_REGISTRY_NBR']] = $idb['idb_id'];
-endforeach; */
 $this->set('idbs', $idbs);
 }
-
 
 public function view($find_id = null) {
 if(!$find_id){
   throw new NotFoundException(__('Invalid find'));
   }
 $find= $this->Find->find('first', array(
- 'recursive' => 2,
  'conditions' => array('Find.FIND_ID' => $find_id),
+ 'recursive' => 5,
   'contain' => array ('Citation', 'DigitalImg', 'Material','ProvInfo', 'VMFind', 'FindRegistryInfo')
 	));
 $this->set('find', $find);
+$key = 'MATERIAL_DESCR';
+$bad = array(
+    'unknown',
+    'uncertain',
+		''
+);
+
 
 
 $this->loadModel('DirectoryInfo');
@@ -46,13 +48,8 @@ foreach ($dirs as $dir):
 $arranged_dirs[$dir['DirectoryInfo']['DIRECTORY_NAME']] = $dir['DirectoryInfo']['DIRECTORY_PATH'];
 endforeach;
 $this->set('dirs', $arranged_dirs);
-
-
-
-
-
 $i=0;
-print_r($find);
+$new_material='';
 foreach ($find['Material'] as $material){
 	if ($material['LVL_NBR']==1){
 	$new_material[$i]['material1']=$material;
@@ -68,6 +65,33 @@ foreach ($find['Material'] as $material){
 }
 }
 $this->set('material', $new_material);
+
+$mat='';
+if ((!empty($material[0]['material3'])) && (!in_array($material[0]['material3'][$key],$bad))){
+$mat= $material[0]['material3'][$key];
+}
+elseif ((!empty($material[0]['material2'])) && (!in_array($material[0]['material2'][$key],$bad))){
+$mat= $material[0]['material2'][$key];
+}
+elseif ((!empty($material[0]['material1'])) && (!in_array($material[0]['material1'][$key],$bad))){
+$mat= $material[0]['material1'][$key];
+}
+
+unset($key, $bad);
+
+if ($find['VMFind']['DESCRN_1']!=null){
+
+$desc= $find['VMFind']['DESCRN_1'];
+}
+else{
+$desc= $find['VMFind']['DESCR1'];
+}
+
+$title = $find['Find']['FDNO'].': '.$find['Find']['COLOR'].' '.$mat. '  '.$desc;
+$this->set('title', $title);
+
+
+
 /*
 
 foreach ($find['SiteSubdiv'] as $subdiv){

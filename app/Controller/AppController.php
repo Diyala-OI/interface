@@ -15,7 +15,7 @@ public $components = array(/*'Security', 'DebugKit.Toolbar',*/ 'Session',
             ),'authorize' => array('Controller')
         ));
 
-public $helpers = array( 'Tinymce'); 
+public $helpers = array( 'Tinymce');
 
 public function isAuthorized($user) {
     //Admin can access every action
@@ -38,9 +38,5 @@ $this->set('menu', $menu);
  }
 public function beforeFilter() {
  $this->Auth->allow('index', 'view', 'getnodes','reparent', 'reorder','sort' );
- //$this->Security->allowedActions('sort', 'getnodes','reparent', 'reorder');
-//$this->Security->allowedControllers('WikiArticles');
- //$this->Security->csrfCheck = false;
  }
-
 }

@@ -1,10 +1,9 @@
 <!-- File: /app/View/Sites/index.ctp -->
-<section id="content">
-  <div class="container-fullwidth clearfix">
-<h1>Diyala Sites</h1>
+<div class="content-wrap">
+<div class="container clearfix">
 <h2>Explore the Diyala Sites Map</h2>
 <p>
-Nunc porttitor urna sed convallis fringilla. Sed urna ligula, porttitor id velit sed, ullamcorper feugiat nisl. Morbi eu est quis odio dapibus euismod eu nec quam.
+Click on the name of the site you would like to visit. Check out the list below for additional choices.
 </p>
 
 <ul id="all-sites">
@@ -45,5 +44,4 @@ foreach ($sites as $site){
 
 <?php
  unset($site); ?>
- </div>
- </section>
+ </div> </div>
