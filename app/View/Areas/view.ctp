@@ -1,11 +1,9 @@
-<section id="content">
-  <div class="container-fullwidth clearfix">
-<section class="areas">
-<h1>Area <?php echo $area['Area']['SITE_SUBDIV_NM']; ?> of <?php echo $area['Site']['SITE_NM']; ?></h1>
+<div class="content-wrap">
+<div class="container clearfix">
 <h2>Levels maps of <?php echo $area['Area']['SITE_SUBDIV_NM']; ?></h2>
 <p>
 Hover on the map to see the loci you can click on to further browse into the data.<br />
-The loci indicated on the map are <em>approximate</em>. </p>
+The delimitations of the loci indicated on the map are <em>approximate</em>. </p>
 
 <div id="tabs">
 <?php
@@ -94,8 +92,7 @@ endforeach; //($area['ArchLevel'] as $arch_level):
 
 ?>
 </div>
-</section>
-<section class="areas">
+
   <!-- <h2>Other levels</h2> -->
 
 <?php
@@ -116,8 +113,9 @@ endforeach; //($area['ArchLevel'] as $arch_level):
 <?php //endif;
 //endforeach;
 ?>
-</section>
+
 <?php unset($area); ?>
 
 </div>
-</section>
+
+</div>

@@ -98,21 +98,21 @@ foreach ($material as $mat):
 if (!empty($mat['material1'])):
    echo $this->Html->link(
    $mat['material1']['MATERIAL_DESCR'],
-   array('controller' => 'materials', 'action' => 'view', $mat['material1']['MATERIAL_ID']));
+   array('controller' => 'materials', 'action' => 'view', $mat['material1']['MATERIAL_CD']));
 endif;
 
 if (!empty($mat['material2'])):
   echo " > ";
   echo $this->Html->link(
   $mat['material2']['MATERIAL_DESCR'],
-  array('controller' => 'materials', 'action' => 'view', $mat['material2']['MATERIAL_ID']));
+  array('controller' => 'materials', 'action' => 'view', $mat['material2']['MATERIAL_CD']));
 endif;
 
 if (!empty($mat['material3'])):
   echo " > ";
   echo $this->Html->link(
   $mat['material3']['MATERIAL_DESCR'],
-  array('controller' => 'materials', 'action' => 'view', $mat['material3']['MATERIAL_ID']));
+  array('controller' => 'materials', 'action' => 'view', $mat['material3']['MATERIAL_CD']));
 endif;
 ?>
 <li>
@@ -120,7 +120,7 @@ endif;
 endforeach;?>
 </ul></td>
 <td><?php echo $find['MUSEUM_REGISTRY_NBR'] ?></td>
-<td><a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=DIYALAAPPL:41:::NO:41:P41_FIND_ID:<?php echo$find['FIND_ID'];?>" target="apex"><img src="/img/hat.png"></a>
+<td><a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=DIYALA:41:::NO:41:P41_FIND_ID:<?php echo$find['FIND_ID'];?>" target="apex"><img src="/img/hat.png"></a>
  <?php
 if ($find['MUSEUM_NM']=='OI' && !empty($find['Idb']['idb_id'])): ?>
 <a href="http://oi-idb.uchicago.edu/#D/MC/<?php echo $find['Idb']['idb_id'];?>" target="idb">OI iDB</a></td>

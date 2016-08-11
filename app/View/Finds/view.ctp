@@ -4,16 +4,17 @@
 <?php if(!empty($find['DigitalImg'])) : ?>
   <div class="slider">
     <?php
+    $i=0;
     foreach ($find['DigitalImg'] as $k => $image):
     if ($image['THUMBNAIL_IND'] == 'N' &&  $image['SCREEN_IMG_IND'] == 'Y' ):
-    $kk=$k+1;
     ?>
-    <input type="radio" name="slide_switch" id="img<?php echo $k;?>"  <?php if ($k==0){echo 'checked';} ?> />
+    <input type="radio" name="slide_switch" id="img<?php echo $k;?>"  <?php if ($i==0){echo 'checked';} ?> />
     <label for="img<?php echo $k;?>">
       <img src="<?php echo IMG_PATH.$dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>"/>
     </label>
     <img src="<?php echo IMG_PATH.$dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" />
     <?php
+    $i++;
     endif;
     endforeach;
   ?>
@@ -25,14 +26,12 @@
 <div class="col_half col_last">
   <h3>Description and Analysis</h3>
   <br />
-  Dating: <br />
   Description: <br />
   Tags:  <br />
   Keywords: <br />
   Materials:
   <ul>
-
-  <?php foreach ($find['Material'] as $mat):?>
+    <?php foreach ($material as $mat):?>
   <li>
   <?php if (!empty($mat['material1'])):?>
   <?php echo $this->Html->link(
@@ -53,62 +52,79 @@
   <?php echo $this->Html->link(
      $mat['material3']['MATERIAL_DESCR'],
       array('controller' => 'materials', 'action' => 'view', $mat['material3']['MATERIAL_ID']));
-  ?>
-  <?php endif;?>
+ endif;?>
+</li>
   <?php endforeach;?>
   </ul>
   <br />
   <?php if(!empty($find['Find']['COLOR'])||$find['Find']['COLOR']!=''): ?>
   Color: <?php echo $find['Find']['COLOR'].' '; ?> </br>
-  <?php endif; ?>
+  <?php endif;
+// DIMENSiONS
+
+if (!empty($find['VMFind']['FIND_DIMEN'])):?>
   Dimensions: <?php echo $find['VMFind']['FIND_DIMEN']; ?><br />
-  <?php
+  <?php endif;
+// QUANTITY
   // Displays only if there is more than one item w/ this find number
   if ($find['Find']['QUANTITY']>1)
   {
   echo "Quantity : ".$find['Find']['QUANTITY'];
   }
   ?>
+  Dating: <br />
+
+
+
+
+
   </div>
 <div class="clear"></div>
 
 <div class="col_one_third">
 <h3>Provenience</h3>
-Dig season: <?php echo $find['Find']['SEASON']; ?></br>
 <?php if (!empty($subdiv['site'])):?>
-Site :
+  Site :
+  <?php echo $this->Html->link(
+     $subdiv['site']['SITE_SUBDIV_NM'],
+      array('controller' => 'sites', 'action' => 'view', $subdiv['site']['SITE_ABBRV_CD']));
+  ?>
+  <br />
+  <?php endif;?>
+  <?php if (!empty($subdiv['area'])):?>
+  Area :
+  <?php echo $this->Html->link(
+     $subdiv['area']['SITE_SUBDIV_NM'],
+      array('controller' => 'areas', 'action' => 'view', $subdiv['area']['SITE_SUBDIV_ID']));
+  ?>
+  <br />
+  <?php endif;?>
+  <?php if (!empty($subdiv['ArchLevel'])):?>
+  Level :
+  <?php echo $subdiv['ArchLevel']['site_subdiv_nm'] ?>
+  <br />
+  <?php endif;?>
+  <?php if (!empty($subdiv['locus'])):
+$locus=$subdiv['locus'];
+$locus['name']=null;
+if (!is_null($locus['SITE_SUBDIV_NM'])){
+$locus['name'] = ' ('.$locus['SITE_SUBDIV_NM'].')';
+}
+    ?>
+  Locus :
 <?php echo $this->Html->link(
-   $subdiv['site']['SITE_SUBDIV_NM'],
-    array('controller' => 'sites', 'action' => 'view', $subdiv['site']['SITE_ABBRV_CD']));
-?>
-<br />
-<?php endif;?>
-<?php if (!empty($subdiv['area'])):?>
-Area :
-<?php echo $this->Html->link(
-   $subdiv['area']['sITE_SUBDIV_NM'],
-    array('controller' => 'areas', 'action' => 'view', $subdiv['area']['SITE_SUBDIV_ID']));
-?>
-<br />
-<?php endif;?>
-<?php if (!empty($subdiv['ArchLevel'])):?>
-Level :
-<?php echo $subdiv['ArchLevel']['site_subdiv_nm'] ?>
-<br />
-<?php endif;?>
-<?php if (!empty($subdiv['locus'])):?>
-Area :
-<?php echo $this->Html->link(
-   $subdiv['locus']['SITE_SUBDIV_NM'],
-    array('controller' => 'locus', 'action' => 'view', $subdiv['locus']['SITE_SUBDIV_ID']));
-?>
-<br />
-<?php endif;?>
-<a href="/sites">Diyala Region</a>, Mesopotamia
-<br />
+$locus['SQ_H_COORD'].$locus['SQ_V_COORD'].':'.$locus['LOCUS_NBR'].$locus['name'], array('controller' => 'loci', 'action' => 'view', $subdiv['locus']['SITE_SUBDIV_ID']));
+ ?>
+  <br />
+  <?php endif;?>
+  <a href="/sites">Diyala Region</a>, Mesopotamia
+  <br />
+
+Dig season: <?php echo $find['Find']['SEASON']; ?></br>
 </div>
 
-<div class="col_one_third ">
+
+<div class="col_one_third">
 <h3>Grouping</h3>
 container or contained<br />
 link to container if contained<br />
@@ -158,25 +174,17 @@ etc..
 
 <div class="col_one_third" >
 <h3>Outside links</h3>
-<a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=105:41:::NO:41:P41_FIND_ID:<?php echo$find['Find']['FIND_ID'];?>" target="apex">Scholar interface (<?php echo $find['Find']['FDNO']?>)</a><br />
+<a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=DIYALA:41:::NO:41:P41_FIND_ID:<?php echo$find['Find']['FIND_ID'];?>" target="apex">Scholar interface (<?php echo $find['Find']['FDNO']?>)</a><br />
 
 <?php
 foreach ($find['FindRegistryInfo'] as $reg):
     if ($reg['MUSEUM_NM']=='OI'):
         echo $reg['MUSEUM_NM'] .' '. $reg['MUS_REGISTRY_NBR'];?>
-        <a href=http://oi-idb.uchicago.edu/#D/MC/<?php echo $idbs[$reg['MUSEUM_NM'].' '.$reg['MUS_REGISTRY_NBR']];?>" target="idb">Oriental Institute IDB (eMU id # <?php echo $idbs[$reg['MUSEUM_NM'].' '.$reg['MUS_REGISTRY_NBR']];?> )</a><br />
+        <a href=http://oi-idb.uchicago.edu/#D/MC/<?php echo $idbs[$reg['MUSEUM_NM'].' '.$reg['MUS_REGISTRY_NBR']];?>" target="idb">Oriental Institute IDB (eMU id # <?php echo $idbs[$reg['MUSEUM_NM'].' '.$reg['MUS_REGISTRY_NBR']];?> )</a>
         <?php
-
-    endif;
-endforeach;
-?>
-
-<br />
+        endif;
+        endforeach;
+        ?>
 </div>
-
-
 </div>
-
 </div>
-
-</section>

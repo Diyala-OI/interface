@@ -15,6 +15,7 @@ if (!$id) {
     }
   $locus = $this->Locus->find('first',  array(
   'conditions' => array('id' => $id),
+  'recursive' => 3,
   'order' => array('DISPLAY_SEQ1_NBR', 'DISPLAY_SEQ2_NBR', 'DISPLAY_SEQ3_NBR'),
   'contain' => array(
             	'Find' => array ('Citation', 'DigitalImg', 'Material', 'VMFind' ),
@@ -36,7 +37,18 @@ foreach ($dirs as $dir):
 $arranged_dirs[$dir['DirectoryInfo']['DIRECTORY_NAME']] = $dir['DirectoryInfo']['DIRECTORY_PATH'];
 endforeach;
 $this->set('dirs', $arranged_dirs);
-$this->set('locus', $locus);
 
+
+$locus['Locus']['name']=null;
+if (!is_null($locus['Locus']['SITE_SUBDIV_NM'])){
+$locus['Locus']['name'] = ' ('.$locus['Locus']['SITE_SUBDIV_NM'].')';
+}
+$title= 'Locus '. $locus['Locus']['SQ_H_COORD'].
+$locus['Locus']['SQ_V_COORD'].
+':'.
+$locus['Locus']['LOCUS_NBR'].
+$locus['Locus']['name'] .' in area '.$locus['ArchLevel']['0']['Area']['SITE_SUBDIV_ID'].' of '.$locus['ArchLevel']['0']['Site']['SITE_NM'];
+$this->set('title',$title);
+$this->set('locus', $locus);
 }
 }

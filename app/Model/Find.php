@@ -28,14 +28,23 @@ public $hasAndBelongsToMany = array(
  'foreignKey' => 'FIND_ID',
  'associationForeignKey' => 'MATERIAL_ID',
 
-  )
- /* 'Locus' => array(
+  ),
+/*
+ 'Locus' => array(
  'className' => 'Locus',
  'joinTable' => 'diyala_wiki.finds_loci',
  'foreignKey' => 'find_id',
- 'associationForeignKey' => 'locus_id'), */
+ 'associationForeignKey' => 'locus_id'),
+*/
+'SiteSubdiv' => array(
+'className' => 'SiteSubdiv',
+'joinTable' => 'find_site_subdiv',
+'foreignKey' => 'FIND_ID',
+'associationForeignKey' => 'SITE_SUBDIV_ID'),
 
-);/*
+)
+
+;/*
 public $hasMany= array(
  'Notes' => array(
  'className' => 'Note',

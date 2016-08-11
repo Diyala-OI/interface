@@ -4,8 +4,8 @@ class MaterialsController extends AppController {
 	var $name = 'Materials';
 
 	function index() {
-		$this->Material->find('all', array('recursive' => 1));
-		$this->set('materials', $this->paginate());
+
+		$this->set('materials',$this->Material->find('all', array('recursive' => 1)));
 		$this->set('title', 'Materials repertoire');
 		}
 

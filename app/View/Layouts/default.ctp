@@ -109,6 +109,6 @@
 	<script type="text/javascript" src="/js/jquery.js"></script>
 	<script type="text/javascript" src="/js/plugins.js"></script>
 	<script type="text/javascript" src="/js/functions.js"></script>
-
+<?php //if (Configure::read('debug') == 2) { echo $this->element('sql_dump');} ?>
 </body>
 </html>

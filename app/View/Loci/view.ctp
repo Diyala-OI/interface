@@ -1,30 +1,35 @@
-<section id="content">
-  <div class="container-fullwidth clearfix">
-<div class="locus">
-<h1>Locus <?php echo $locus['Locus']['locus_nm'];?></h1>
-<h2><a href="/areas/view/<?php echo $locus['ArchLevel']['0']['Area']['SITE_SUBDIV_ID']?>" ><?php echo $locus['ArchLevel']['0']['Area']['SITE_SUBDIV_NM']?></a>
-Area in <a href="/sites/view/<?php echo $locus['ArchLevel']['0']['Site']['SITE_ABBRV_CD']?>" ><?php echo $locus['ArchLevel']['0']['Site']['SITE_NM']?></a></h2>
-<div id="locus-picture">
+<div class="content-wrap">
+<div class="container clearfix">
+
+<div class="col_two_thirds">
+  <a href="/areas/view/<?php echo $locus['ArchLevel']['0']['Area']['SITE_SUBDIV_ID']?>" ><?php echo $locus['ArchLevel']['0']['Area']['SITE_SUBDIV_NM']?></a>
+  Area in <a href="/sites/view/<?php echo $locus['ArchLevel']['0']['Site']['SITE_ABBRV_CD']?>" ><?php echo $locus['ArchLevel']['0']['Site']['SITE_NM']?></a>
+
+  Info about this locus : what levels, period, etc.
+  Click on find number below to see details.
+</div>
+
+
+
+
 <?php
-if (!empty($locus['LocusCard'][0]['DigitalImg'])):
-foreach ($locus['LocusCard'][0]['DigitalImg'] as $image):
+if (!empty($locus['LocusCard'][0]['DigitalImg'])): ?>
+<div class="col_one_third col_last">
+<h3>Locus Card</h3>
+<?php foreach ($locus['LocusCard'][0]['DigitalImg'] as $image):
 if ($image['SCREEN_IMG_IND']=='Y'):
 
 ?>
-<a href="http://diyala.uchicago.edu<?php echo $dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" target="new">
-<img src="http://diyala.uchicago.edu<?php echo $dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" style="max-width:300px; padding-bottom:20px;padding-left:20px;" alt="Locus Card of Locus Locus <?php echo $locus['Locus']['locus_nm'];?>" align="right" />
+<a href="<?php echo IMG_PATH.$dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" target="new">
+<img src="<?php echo IMG_PATH.$dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>"  alt="Locus Card of Locus Locus <?php echo $title;?>" />
 </a>
 <?php
 endif;
 endforeach;
 endif;
 ?>
-</div>
-<?php // needs a loop through levels ?>
-Info about this locus : what levels, period, etc.
-Click on find number below to see details.
-<div id="associated_finds">
-<table style="background-color:white">
+<div class="clear"></div>
+<table class="table table-stripped">
 <caption>Associated finds</caption>
 <tr>
 <th>Image<?php //echo $this->Paginator->sort('no_perso');?></th>
@@ -37,11 +42,8 @@ Click on find number below to see details.
 <?php
   $i = 0;
   foreach ($locus['Find'] as $find):
-    print_r($find);
- 	$class = null;
-	if ($i++ % 2 == 0) {$class = ' class="altrow"'; }
 
-	$z=0;
+		$z=0;
 foreach ($find['Material'] as $material){
 	if ($material['LVL_NBR']==1){
 	$new_material[$z]['material1']=$material;
@@ -62,7 +64,7 @@ $material = $new_material;
 
 
 	?>
-<tr<?php echo $class;?>>
+<tr>
 <td>
 
 <?php
@@ -72,8 +74,8 @@ foreach ($find['DigitalImg'] as $image):
 if ($image['SCREEN_IMG_IND']=='Y'):
 $j++;
 ?>
-<a href="http://diyala.uchicago.edu<?php echo $dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" target="new">
-<img src="http://diyala.uchicago.edu<?php echo $dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" style="max-width:100px" alt="Locus Card of Locus Locus <?php echo $locus['Locus']['locus_nm'];?>" />
+<a href="<?php echo IMG_PATH.$dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" target="new">
+<img src="<?php echo IMG_PATH.$dirs[$image['IMG_DIRECTORY_OBJ']].$image['IMG_FILE_NM'];?>" style="max-width:100px" alt="Locus Card of Locus Locus <?php echo $title;?>" />
 </a>
 <?php
 endif;
@@ -124,21 +126,21 @@ foreach ($material as $mat):
 if (!empty($mat['material1'])):
    echo $this->Html->link(
    $mat['material1']['MATERIAL_DESCR'],
-   array('controller' => 'materials', 'action' => 'view', $mat['material1']['MATERIAL_ID']));
+   array('controller' => 'materials', 'action' => 'view', $mat['material1']['MATERIAL_CD']));
 endif;
 
 if (!empty($mat['material2'])):
   echo " > ";
   echo $this->Html->link(
   $mat['material2']['MATERIAL_DESCR'],
-  array('controller' => 'materials', 'action' => 'view', $mat['material2']['MATERIAL_ID']));
+  array('controller' => 'materials', 'action' => 'view', $mat['material2']['MATERIAL_CD']));
 endif;
 
 if (!empty($mat['material3'])):
   echo " > ";
   echo $this->Html->link(
   $mat['material3']['MATERIAL_DESCR'],
-  array('controller' => 'materials', 'action' => 'view', $mat['material3']['MATERIAL_ID']));
+  array('controller' => 'materials', 'action' => 'view', $mat['material3']['MATERIAL_CD']));
 endif;
 ?>
 <li>
@@ -146,7 +148,7 @@ endif;
 endforeach;?>
 </ul></td>
 <td><?php echo $find['MUSEUM_REGISTRY_NBR'] ?></td>
-<td><a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=DIYALAAPPL:41:::NO:41:P41_FIND_ID:<?php echo$find['FIND_ID'];?>" target="apex"><img src="/img/hat.png"></a>
+<td><a href="http://diyalaproject.uchicago.edu/pls/apex/f?p=DIYALA:41:::NO:41:P41_FIND_ID:<?php echo$find['FIND_ID'];?>" target="apex"><img src="/img/hat.png"></a>
  <?php
 if ($find['MUSEUM_NM']=='OI' && !empty($find['Idb']['idb_id'])): ?>
 <a href="http://oi-idb.uchicago.edu/#D/MC/<?php echo $find['Idb']['idb_id'];?>" target="idb">OI iDB</a></td>
@@ -157,4 +159,8 @@ if ($find['MUSEUM_NM']=='OI' && !empty($find['Idb']['idb_id'])): ?>
 </table>
 </div>
 </div>
-</section>
+<pre>
+  <?php
+print_r($locus);
+   ?>
+</pre>

@@ -64,6 +64,7 @@ $this->set('colors', $colors = array('#d4aa00', '#008080', '#000080', '#ff0000',
 		throw new NotFoundException(__('Invalid area'));
 		}
 	$this->set('area', $area);
+		$this->set('title', 'Area '.$area['Area']['SITE_SUBDIV_NM'].' of '.$area['Site']['SITE_NM']);
 	}
 
 

@@ -14,6 +14,6 @@ public $hasAndBelongsToMany = array(
  'foreignKey' => 'MATERIAL_ID',
  'associationForeignKey' => 'FIND_ID',
 ));
-		
+
 
 }

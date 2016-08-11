@@ -18,7 +18,7 @@ Comments : <?php echo $material['Material']['MATERIAL_CMTS']?><br />
 ?>
 </div>
 
-<table>
+<table class="table table-striped">
 <caption>Associated finds</caption>
 <tr>
 <th>Image<?php //echo $this->Paginator->sort('no_perso');?></th>
@@ -141,7 +141,7 @@ endforeach;
 
 ?></td>
 <td><a href="
-http://diyalaproject.uchicago.edu/pls/apex/f?p=105:41:::NO:41:P41_FIND_ID:<?php echo$find['FIND_ID'];?>" target="apex"><img src="/img/hat.png"></a>
+http://diyalaproject.uchicago.edu/pls/apex/f?p=DIYALA:41:::NO:41:P41_FIND_ID:<?php echo$find['FIND_ID'];?>" target="apex"><img src="/img/hat.png"></a>
  <?php
 
  foreach ($find['FindRegistryInfo'] as $registry):

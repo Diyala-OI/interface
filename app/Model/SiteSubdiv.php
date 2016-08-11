@@ -22,8 +22,8 @@ public $hasAndBelongsToMany = array(
  'foreignKey' => 'SITE_SUBDIV_ID',
  'associationForeignKey' => 'PERIOD_ID',
 )
-		
+
 		);
-		
+
 
 }
